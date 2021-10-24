@@ -2,16 +2,29 @@ ik=""
 kuu=""
 paev=""
 aasta=""
+sunnitusmaja=""
+sugu=""
 print("Анализ личного кода".center(50,"*"))
-while len(ik)!=11 or ik.isdigit()!=True or int(list(ik)[0]) not in [1,2,3,4,5,6] or int(list(ik)[3]+list(ik)[4])<0 or int(list(ik)[3]+list(ik)[4])>13 or jaak!=int(list(ik)[10]):
+while True:
     try:
         ik=input("Введите личный код: ")
+        if len(ik)!=11:
+            print("Вы указали неверные данные")
+            continue
         ik_list=list(ik)
-        if int(ik_list[0]) not in [1,2,3,4,5,6]:
-            print("Первая цифра личного кода указана неверно")
-        
+          
         kuu=ik_list[3]+ik_list[4]
         kuu=int(kuu) #если это не указать, то все даты до 10 месяца будут не существующими
+        sunnitusmaja=ik_list[8]+ik_list[9]+ik_list[10]
+        sunnitusmaja=int(sunnitusmaja)
+
+        sugu=ik_list[0] #вывод пола владельца личного кода
+        sugu=int(sugu)
+        if sugu==1 or sugu==3 or sugu==5:
+            print("Анализируемый личный код принадлежит мужчине.")
+        elif sugu==2 or sugu==4 or sugu==6:
+            print("Анализируемый личный код принадлежит женщине.")
+
         paev=int(ik_list[5]+ik_list[6])
         if int(ik_list[0])==1 or int(ik_list[0])==2:
             aasta=int("18"+ik_list[1]+ik_list[2])
@@ -41,13 +54,41 @@ while len(ik)!=11 or ik.isdigit()!=True or int(list(ik)[0]) not in [1,2,3,4,5,6]
             print("19",ik_list[1],ik_list[2]," - ваш год рождения.")
         elif int(ik_list[0])==5 or int(ik_list[0])==6:
             print("20",ik_list[1],ik_list[2]," - ваш год рождения.")
+
+        sunnitusmaja=int(ik_list[7]+ik_list[8]+ik_list[9]) #определяем место рождения
+        if sunnitusmaja==1 or sunnitusmaja<=10:
+            print("Вы родились в родильном доме Куресааре.")
+        elif sunnitusmaja==11 or sunnitusmaja<=19:
+            print("Вы родились в клинике Тартуского университета.")
+        elif sunnitusmaja==21 or sunnitusmaja<=220:
+            print("Вы родились в одном из родильных домов Таллинна, Хийумаа, Кейла, Рапла или же Локса.")
+        elif sunnitusmaja==221 or sunnitusmaja<=270:
+            print("Вы родились в одном из родильных домов Ида-Вирумаа, Кохтла-Ярве или Йыхви.")
+        elif sunnitusmaja==271 or sunnitusmaja<=370:
+            print("Вы родились в Тарту или Йыгева.")
+        elif sunnitusmaja==371 or sunnitusmaja<=420:
+            print("Вы родились в Нарве.")
+        elif sunnitusmaja==421 or sunnitusmaja<=470:
+            print("Вы родлись в Пярну.")
+        elif sunnitusmaja==471 or sunnitusmaja<=490:
+            print("Вы родились в Таллинне или в Хаапсалу.")
+        elif sunnitusmaja==490 or sunnitusmaja<=520:
+             print("Вы родились в Пайде.")
+        elif sunnitusmaja==521 or sunnitusmaja<=570:
+            print("Вы родились в Раквере или в Тапа.")
+        elif sunnitusmaja==571 or sunnitusmaja<=600:
+            print("Вы родились в Валга.")
+        elif sunnitusmaja==601 or sunnitusmaja<=650:
+            print("Вы родились в Вильянди.")
+        elif sunnitusmaja==651 or sunnitusmaja<=700:
+            print("Вы родились в Выру или Пыльва.")
+
         summa=0
         for i in range(1,11):
             if i<10:
                 summa+=i*int(ik_list[i-1])
             else:
                 summa+=(i-9)*int(ik_list[i-1])
-        print("Сумма: ", summa)
         jaak=summa//11
         if jaak==10: 
             summa=0
